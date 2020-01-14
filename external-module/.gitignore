@@ -265,3 +265,6 @@ jspm_packages
 
 # Custom
 public/app/bower_components
+
+# Build folder
+dist
