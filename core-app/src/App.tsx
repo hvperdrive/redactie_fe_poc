@@ -1,25 +1,36 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Link, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import logo from './logo.svg';
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="redactie-poc">
+        <div className="redactie-poc__sidebar">
+          <header>
+            <Link to="/">
+              <img src={logo} alt="logo" />
+              <span>Redactie (poc)</span>
+            </Link>
+          </header>
+          <nav>
+            {/* Render navigation items */}
+          </nav>
+        </div>
+        <div className="redactie-poc__main">
+          <h1>Welkom!</h1>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui sequi commodi libero veniam.
+            Exercitationem, officia quam soluta nemo dignissimos ab obcaecati consectetur autem itaque
+            iusto aut. Ducimus dolores ipsa culpa.
+          </p>
+          <Switch>
+            {/* Render routes */}
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
