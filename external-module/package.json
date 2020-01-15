@@ -6,7 +6,9 @@
   "module": "dist/bundle.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "prebuild": "rimraf dist",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npm run prebuild && npm run build:types && webpack --mode=production",
     "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "publishConfig": {
@@ -47,18 +49,18 @@
     "rootpath": "~0.1.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "@district01/eslint-config": "1.0.0",
-    "@rollup/plugin-commonjs": "^11.0.1",
     "@types/react": "^16.9.17",
-    "apidoc-swagger": "git+https://github.com/JvJefke/apidoc-swagger.git",
+    "babel-loader": "^8.0.6",
     "chai": "~4.1.2",
-    "istanbul": "^0.4.5",
-    "mocha": "~4.0.1",
     "react": "^16.12.0",
-    "rollup": "^1.29.0",
-    "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "sinon": "~4.0.2",
-    "typescript": "^3.7.4"
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }

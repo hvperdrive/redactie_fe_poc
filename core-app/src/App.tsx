@@ -4,6 +4,13 @@ import { Link, BrowserRouter as Router, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 
 const App: FC = () => {
+  // Optionally create computed properties from CoreApi modules
+  // or expose an additional method for:
+  // - navigation items
+  // f.e.: [{ label: 'Module name', to: '/path-to-module' }, ...]
+  // - routes
+  // f.e.: [{ component: ModuleRouteComponent, path: '/path-to-module' }, ...]
+
   return (
     <Router>
       <div className="redactie-poc">
@@ -16,6 +23,9 @@ const App: FC = () => {
           </header>
           <nav>
             {/* Render navigation items */}
+            {/* Using react-router-dom's <Link /> component):
+              navigationItems.map(({ label, to }) => <Link to={to}>{label}</Link>)
+            */}
           </nav>
         </div>
         <div className="redactie-poc__main">
@@ -27,6 +37,10 @@ const App: FC = () => {
           </p>
           <Switch>
             {/* Render routes */}
+            {/* Render navigation items */}
+            {/* Using react-router-dom's <Route /> component):
+              routes.map(({ component, path }) => <Route component={component} path={path} />);
+            */}
           </Switch>
         </div>
       </div>

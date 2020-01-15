@@ -1,5 +1,15 @@
 import React, { FC } from 'react';
 
+class CoreApi {
+	public exposeModuleApi(name: string, api: { [key:string]: any }) {
+		if (window.CORE && window.CORE.exposeModuleApi) {
+			window.CORE.exposeModuleApi(name, api);
+		}
+	}
+}
+
+const coreApi = new CoreApi();
+
 const ModuleRouteComponent: FC = () => (
 	<div>
 		<h1>External Module Route</h1>
@@ -10,6 +20,10 @@ const ModuleRouteComponent: FC = () => (
 		</p>
 	</div>
 );
+
+coreApi.exposeModuleApi('external-module', {
+	mainRouteComponent: ModuleRouteComponent,
+});
 
 export default {
 	mainRouteComponent: ModuleRouteComponent,
