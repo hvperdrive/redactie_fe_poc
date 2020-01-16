@@ -1,4 +1,5 @@
 const path = require('path');
+const RequireWrapperPlugin = require('./plugins/require-wrapper-plugin');
 
 module.exports = {
 	entry: './public/index.tsx',
@@ -25,10 +26,13 @@ module.exports = {
 			},
 		],
 	},
+	plugins: [
+		new RequireWrapperPlugin()
+	],
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
 	},
 	externals: {
-		react: 'React',
+		react: 'react',
 	},
 };
