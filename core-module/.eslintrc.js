@@ -14,6 +14,8 @@ module.exports = {
 			'imports': 'always-multiline',
 			'exports': 'always-multiline',
 			'functions': 'never'
-		}]
+		}],
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/interface-name-prefix': 'off'
 	}
 };

@@ -34,5 +34,7 @@ module.exports = {
 	},
 	externals: {
 		react: 'react',
+		'@wcm/core-module': '@wcm/core-module',
+		'react-router-dom': 'react-router-dom',
 	},
 };

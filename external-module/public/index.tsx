@@ -1,18 +1,11 @@
 import React, { FC } from 'react';
+import { useRouteMatch, Link, Switch, Route } from 'react-router-dom';
 
-class CoreApi {
-	public exposeModuleApi(name: string, api: { [key:string]: any }) {
-		if (window.CORE && window.CORE.exposeModuleApi) {
-			window.CORE.exposeModuleApi(name, api);
-		}
-	}
-}
+import { wcmCore } from '@wcm/core-module';
 
-const coreApi = new CoreApi();
-
-const ModuleRouteComponent: FC = () => (
+const ChildRouteComponent: FC = () => (
 	<div>
-		<h1>External Module Route</h1>
+		<h3> Child route </h3>
 		<p>
 			Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum facilis incidunt in eum
 			modi pariatur accusantium. Inventore asperiores id molestiae expedita laborum iusto
@@ -21,8 +14,30 @@ const ModuleRouteComponent: FC = () => (
 	</div>
 );
 
-coreApi.exposeModuleApi('external-module', {
-	mainRouteComponent: ModuleRouteComponent,
+const ModuleRouteComponent: FC = () => {
+	const match = useRouteMatch();
+
+	return (
+		<div>
+			<h1>External Module Route</h1>
+
+			<nav>
+				<Link to={`${match.path}/child-route`}> child route </Link>
+			</nav>
+			<Switch>
+				<Route path={`${match.path}/child-route`} component={ChildRouteComponent}/>
+			</Switch>
+		</div>
+	)
+};
+
+wcmCore.registerRoute({
+	path: '/external-module',
+	component: ModuleRouteComponent,
+});
+
+wcmCore.exposeModuleApi('external-module', {
+	someprop: 'custom api prop',
 });
 
 export default {

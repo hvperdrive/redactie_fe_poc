@@ -27,7 +27,7 @@ class RequireWrapperPlugin {
 	}
 
 	wrapFile(compilation, fileName) {
-		const header = `window.CORE.addModuleSource('external-module', (require, exports) => {return `;
+		const header = `window.MODULE_LOADER.addModuleSource('external-module', (require, exports) => {return `;
 		const footer = `})`
 
 		compilation.assets[fileName] = new ConcatSource(
