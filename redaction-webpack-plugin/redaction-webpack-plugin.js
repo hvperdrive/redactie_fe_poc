@@ -1,12 +1,12 @@
 const ConcatSource = require("webpack-sources").ConcatSource;
 
-class RequireWrapperPlugin {
+class RedactionWebpackPlugin {
 
 	constructor() {}
 
 	apply(compiler) {
-		compiler.hooks.compilation.tap('RequireWrapperPlugin', (compilation) => {
-			compilation.hooks.afterOptimizeChunkAssets.tap('RequireWrapperPlugin', (chunks) => {
+		compiler.hooks.compilation.tap('RedactionWebpackPlugin', (compilation) => {
+			compilation.hooks.afterOptimizeChunkAssets.tap('RedactionWebpackPlugin', (chunks) => {
 				this.wrapChunks(compilation, chunks);
 			});
 		});
@@ -38,4 +38,4 @@ class RequireWrapperPlugin {
 	}
 }
 
-module.exports = RequireWrapperPlugin;
+module.exports = RedactionWebpackPlugin;

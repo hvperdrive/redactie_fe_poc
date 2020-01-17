@@ -1,5 +1,5 @@
 const path = require('path');
-const RequireWrapperPlugin = require('./plugins/require-wrapper-plugin');
+const RedactionWebpackPlugin = require('redaction-webpack-plugin');
 
 module.exports = {
 	entry: './public/index.tsx',
@@ -27,7 +27,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new RequireWrapperPlugin()
+		new RedactionWebpackPlugin()
 	],
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
