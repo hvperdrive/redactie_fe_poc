@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Link, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import * as ReactRouterDom from 'react-router-dom';
 import { wcmCore } from '@wcm/core-module';
 
 import { moduleLoader } from './module-loader';
-import Home from './Home';
+import Home from './components/Home/Home';
 import logo from './logo.svg';
 
 declare global {
@@ -64,27 +64,25 @@ const App: FC = () => {
 	}
 
 	return (
-		<Router>
-			<div className="redactie-poc">
-				<div className="redactie-poc__sidebar">
-					<header>
-						<Link to="/">
-							<img src={logo} alt="logo" />
-							<span>Redactie (poc)</span>
-						</Link>
-					</header>
-					<nav>
-						{ modulesLoaded && renderNavigationItems() }
-					</nav>
-				</div>
-				<div className="redactie-poc__main">
-					<Switch>
-						{ modulesLoaded && renderRoutes() }
-						{ modulesLoaded && <Route path="/" component={Home}/> }
-					</Switch>
-				</div>
+		<div className="redactie-poc">
+			<div className="redactie-poc__sidebar">
+				<header>
+					<Link to="/">
+						<img src={logo} alt="logo" />
+						<span>Redactie (poc)</span>
+					</Link>
+				</header>
+				<nav>
+					{ modulesLoaded && renderNavigationItems() }
+				</nav>
 			</div>
-		</Router>
+			<div className="redactie-poc__main">
+				<Switch>
+					{ modulesLoaded && renderRoutes() }
+					{ modulesLoaded && <Route path="/" component={Home}/> }
+				</Switch>
+			</div>
+		</div>
 	);
 }
 

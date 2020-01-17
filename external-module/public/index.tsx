@@ -31,6 +31,19 @@ const ModuleRouteComponent: FC = () => {
 	)
 };
 
+/**
+ * path
+ * component
+ * label (translation)
+ * type
+ * order
+ * routes
+ * 	path
+ * 	component
+ * 	label (translation)
+ * 	routes
+ */
+
 wcmCore.registerRoute({
 	path: '/external-module',
 	component: ModuleRouteComponent,
