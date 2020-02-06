@@ -11,7 +11,7 @@ export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?
 }
 
 export interface ModuleChildRouteConfig {
-	key?: React.key,
+	key?: React.key;
 	location?: Location;
 	path: string;
 	component: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType;
