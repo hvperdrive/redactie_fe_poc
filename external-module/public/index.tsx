@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { useRouteMatch, Link, Switch, Route } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 
-import { wcmCore } from '@wcm/core-module';
+import { wcmCore, ModuleRouteConfig } from '@wcm/core-module';
 
 const ChildRouteComponent: FC = () => (
 	<div>
@@ -14,7 +14,7 @@ const ChildRouteComponent: FC = () => (
 	</div>
 );
 
-const ModuleRouteComponent: FC = () => {
+const ModuleRouteComponent: FC<{ route: ModuleRouteConfig }> = ({ route }) => {
 	const match = useRouteMatch();
 
 	return (
@@ -22,31 +22,23 @@ const ModuleRouteComponent: FC = () => {
 			<h1>External Module Route</h1>
 
 			<nav>
-				<Link to={`${match.path}/child-route`}> child route </Link>
+				<Link to={`${match.path}/add`}> child route </Link>
 			</nav>
-			<Switch>
-				<Route path={`${match.path}/child-route`} component={ChildRouteComponent}/>
-			</Switch>
+			{ wcmCore.renderRoutes(route.routes as any) }
 		</div>
 	)
 };
 
-/**
- * path
- * component
- * label (translation)
- * type
- * order
- * routes
- * 	path
- * 	component
- * 	label (translation)
- * 	routes
- */
-
 wcmCore.registerRoute({
-	path: '/external-module',
+	path: '/content',
 	component: ModuleRouteComponent,
+	label: 'Content',
+	routes: [
+		{
+			path: '/content/add',
+			component: ChildRouteComponent
+		}
+	]
 });
 
 wcmCore.exposeModuleApi('external-module', {

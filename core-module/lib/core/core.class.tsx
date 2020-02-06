@@ -1,4 +1,6 @@
+import * as React from 'react';
 import { ModuleAPI, ModuleRouteConfig } from './core.types';
+import { Switch, Route, SwitchProps } from 'react-router-dom';
 
 class WCMCore {
 	private modules: {[key: string]: any} = {};
@@ -25,6 +27,27 @@ class WCMCore {
 
 	public getRoutes(): ModuleRouteConfig[] {
 		return this.routes;
+	}
+
+	public renderRoutes(routes: ModuleRouteConfig[] | undefined, extraProps: any = {}, swicthProps: SwitchProps = {}): any {
+		return routes ? (
+			<Switch {...swicthProps}>
+				{routes.map((route, index) => (
+					<Route
+						key={route.key || index}
+						path={route.path}
+						render={
+							props => route.render ? (
+								route.render({...props, ...extraProps, route: route})
+							) : (
+								<route.component {...props} {...extraProps} route={route}/>
+							)
+						}
+
+					/>
+				))}
+			</Switch>
+		) : null;
 	}
 }
 

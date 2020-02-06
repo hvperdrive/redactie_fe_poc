@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as ReactRouterDom from 'react-router-dom';
 import { wcmCore } from '@wcm/core-module';
 
@@ -17,17 +17,20 @@ const App: FC = () => {
 	window.MODULE_LOADER = moduleLoader;
 
 	const [modulesLoaded, setModulesLoaded] = useState(false);
+	const routes = [
+		...wcmCore.getRoutes(),
+		{
+			path: '/',
+			component: Home,
+		},
+	];
+
+	console.log(routes);
 
 	// Get modules config from server
 	const modulesConfig = useMemo(() => [{
 		jsPath: `${process.env.PUBLIC_URL}/module.js`,
 		machineName: 'external-module',
-		navigationLabel: 'external-module',
-	},
-	{
-		jsPath: `${process.env.PUBLIC_URL}/module-2.js`,
-		machineName: 'external-module-2',
-		navigationLabel: 'external-module-2',
 	}], []);
 
 	useEffect(() => {
@@ -41,26 +44,9 @@ const App: FC = () => {
 
 	}, [modulesConfig]);
 
-	const renderRoutes = () => {
-		const routes = wcmCore.getRoutes();
-
-		return routes.map((route, index) => (
-			<Route key={index} path={route.path} component={route.component}/>
-		));
-	}
-
 	const renderNavigationItems = () => {
-		return modulesConfig.map((moduleConfig, index) => {
-
-			const label = moduleConfig.navigationLabel;
-			const path = `/${moduleConfig.machineName}`;
-
-			if (path) {
-			return <Link key={index} to={path}>{label}</Link>
-			}
-
-			return null;
-		});
+		const routes = wcmCore.getRoutes();
+		return routes.map((route, index) => <Link key={index} to={route.path}>{ route.label }</Link>)
 	}
 
 	return (
@@ -77,10 +63,7 @@ const App: FC = () => {
 				</nav>
 			</div>
 			<div className="redactie-poc__main">
-				<Switch>
-					{ modulesLoaded && renderRoutes() }
-					{ modulesLoaded && <Route path="/" component={Home}/> }
-				</Switch>
+				{ modulesLoaded && wcmCore.renderRoutes(routes as any) }
 			</div>
 		</div>
 	);
