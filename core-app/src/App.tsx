@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import * as ReactRouterDom from 'react-router-dom';
-import { wcmCore } from '@wcm/core-module';
+import Core from '@redactie/redactie-core';
 
 import { moduleLoader } from './module-loader';
 import Home from './components/Home/Home';
@@ -18,24 +18,32 @@ const App: FC = () => {
 
 	const [modulesLoaded, setModulesLoaded] = useState(false);
 	const routes = [
-		...wcmCore.getRoutes(),
+		...Core.routes.getAll(),
 		{
 			path: '/',
 			component: Home,
 		},
 	];
 
-	console.log(routes);
-
 	// Get modules config from server
-	const modulesConfig = useMemo(() => [{
-		jsPath: `${process.env.PUBLIC_URL}/module.js`,
-		machineName: 'external-module',
-	}], []);
+	const modulesConfig = useMemo(() => [
+		{
+			jsPath: `${process.env.PUBLIC_URL}/module.js`,
+			machineName: 'external-module',
+		},
+		{
+			jsPath: `${process.env.PUBLIC_URL}/redactie-form-renderer.js`,
+			machineName: 'redactie-form-renderer',
+		},
+		{
+			jsPath: `${process.env.PUBLIC_URL}/redactie-ckeditor.js`,
+			machineName: 'redactie-ckeditor',
+		}
+	], []);
 
 	useEffect(() => {
 		const deps = {
-			'@wcm/core-module': { wcmCore },
+			'@redactie/redactie-core': Core,
 			'react-router-dom': ReactRouterDom,
 		};
 		moduleLoader.loadModules(modulesConfig, deps).then(() => {
@@ -45,8 +53,8 @@ const App: FC = () => {
 	}, [modulesConfig]);
 
 	const renderNavigationItems = () => {
-		const routes = wcmCore.getRoutes();
-		return routes.map((route, index) => <Link key={index} to={route.path}>{ route.label }</Link>)
+		const routes = Core.routes.getAll();
+		return routes.map((route: any, index: any) => <Link key={index} to={route.path}>{route.label}</Link>)
 	}
 
 	return (
@@ -59,11 +67,11 @@ const App: FC = () => {
 					</Link>
 				</header>
 				<nav>
-					{ modulesLoaded && renderNavigationItems() }
+					{modulesLoaded && renderNavigationItems()}
 				</nav>
 			</div>
 			<div className="redactie-poc__main">
-				{ modulesLoaded && wcmCore.renderRoutes(routes as any) }
+				{modulesLoaded && Core.routes.render(routes as any)}
 			</div>
 		</div>
 	);

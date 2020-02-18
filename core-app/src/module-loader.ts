@@ -2,7 +2,7 @@ import * as ReactModule from 'react';
 import { get } from 'scriptjs';
 
 class ModuleLoader {
-	private moduleSources: {[key: string]: any} = {};
+	private moduleSources: { [key: string]: any } = {};
 
 	public addModuleSource(name: string, source: any) {
 		this.moduleSources[name] = source;
@@ -12,7 +12,7 @@ class ModuleLoader {
 		return this.moduleSources[name];
 	}
 
-	public loadModules(moduleConfigs: { jsPath: string, machineName: string }[], deps: {[key: string]: any}): Promise<any> {
+	public loadModules(moduleConfigs: { jsPath: string, machineName: string }[], deps: { [key: string]: any }): Promise<any> {
 		if (Array.isArray(moduleConfigs) && moduleConfigs.length === 0) {
 			return Promise.resolve();
 		}
@@ -21,7 +21,7 @@ class ModuleLoader {
 		return Promise.all(promises);
 	}
 
-	public loadModule(path: string, moduleName: string, deps: {[key: string]: any}): Promise<any> {
+	public loadModule(path: string, moduleName: string, deps: { [key: string]: any }): Promise<any> {
 		return new Promise((resolve, reject) => {
 			get(path, () => {
 				this.compileSource(this.moduleSources[moduleName], deps).then((result) => {
@@ -31,13 +31,11 @@ class ModuleLoader {
 		});
 	}
 
-	private compileSource(source: any, deps: {[key: string]: any}): Promise<any> {
-		console.log(deps);
-		const modules: {[key: string]: any} = {
+	private compileSource(source: any, deps: { [key: string]: any }): Promise<any> {
+		const modules: { [key: string]: any } = {
 			'react': ReactModule,
 			...deps,
 		};
-		console.log(modules);
 
 		const require = (module: string) => modules[module];
 
@@ -52,6 +50,7 @@ class ModuleLoader {
 			});
 		}
 		catch (e) {
+			console.log("error", e)
 			return Promise.reject(e);
 		}
 	}
