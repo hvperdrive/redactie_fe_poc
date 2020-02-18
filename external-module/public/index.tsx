@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 
-import { wcmCore, ModuleRouteConfig } from '@wcm/core-module';
+import Core, { ModuleRouteConfig } from '@redactie/redactie-core';
 
 const ChildRouteComponent: FC = () => (
 	<div>
@@ -16,7 +16,6 @@ const ChildRouteComponent: FC = () => (
 
 const ModuleRouteComponent: FC<{ route: ModuleRouteConfig }> = ({ route }) => {
 	const match = useRouteMatch();
-
 	return (
 		<div>
 			<h1>External Module Route</h1>
@@ -24,12 +23,12 @@ const ModuleRouteComponent: FC<{ route: ModuleRouteConfig }> = ({ route }) => {
 			<nav>
 				<Link to={`${match.path}/add`}> child route </Link>
 			</nav>
-			{ wcmCore.renderRoutes(route.routes as any) }
+			{Core.routes.render(route.routes as any)}
 		</div>
 	)
 };
 
-wcmCore.registerRoute({
+Core.routes.register({
 	path: '/content',
 	component: ModuleRouteComponent,
 	label: 'Content',
@@ -41,7 +40,7 @@ wcmCore.registerRoute({
 	]
 });
 
-wcmCore.exposeModuleApi('external-module', {
+Core.modules.exposeModuleApi('external-module', {
 	someprop: 'custom api prop',
 });
 

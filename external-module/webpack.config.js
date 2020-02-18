@@ -1,5 +1,5 @@
 const path = require('path');
-const RedactionWebpackPlugin = require('redaction-webpack-plugin');
+const RedactionWebpackPlugin = require('@redactie/module-webpack-plugin');
 
 module.exports = {
 	entry: './public/index.tsx',
@@ -27,14 +27,16 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new RedactionWebpackPlugin()
+		new RedactionWebpackPlugin({
+			moduleName: 'external-module'
+		})
 	],
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
 	},
 	externals: {
 		react: 'react',
-		'@wcm/core-module': '@wcm/core-module',
+		'@redactie/redactie-core': '@redactie/redactie-core',
 		'react-router-dom': 'react-router-dom',
 	},
 };
