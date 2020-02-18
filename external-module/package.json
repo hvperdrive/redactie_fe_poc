@@ -55,6 +55,7 @@
     "@babel/preset-typescript": "^7.8.3",
     "@district01/eslint-config": "1.0.0",
     "@redactie/module-webpack-plugin": "^2.0.0",
+    "@redactie/redactie-core": "^1.0.0",
     "@types/react": "^16.9.17",
     "@types/react-router-dom": "^5.1.3",
     "babel-loader": "^8.0.6",
