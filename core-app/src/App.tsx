@@ -59,6 +59,8 @@ const App: FC = () => {
 	const renderNavigationItems = () => {
 		const routes = Core.routes.getAll();
 
+		console.log(routes)
+
 		return routes.map((route: any, index: any) => <Link key={index} to={route.path}>{route.label}</Link>)
 	}
 

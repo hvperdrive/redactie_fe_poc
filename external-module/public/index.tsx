@@ -23,7 +23,7 @@ const ModuleRouteComponent: FC<{ route: ModuleRouteConfig }> = ({ route }) => {
 			<nav>
 				<Link to={`${match.path}/child`}> child route </Link>
 			</nav>
-			{sitesModule.siteRegistry.render(route.routes as any)}
+			{Core.routes.render(route.routes as any)}
 		</div>
 	)
 };
@@ -35,7 +35,7 @@ Core.modules.exposeModuleApi('external-demo-module', {
 const sitesModule = Core.modules.getModuleAPI('sites-module');
 
 if (sitesModule) {
-	sitesModule.siteRegistry.register({
+	sitesModule.routes.register({
 		path: '/external-demo',
 		component: ModuleRouteComponent,
 		label: 'External Demo',
