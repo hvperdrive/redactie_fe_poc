@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build:types": "tsc --emitDeclarationOnly",
-    "build": "npm run prebuild && npm run build:types && webpack --mode=production",
+    "build": "npm run prebuild && npm run build:types && webpack --env.prod",
     "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "publishConfig": {
@@ -63,6 +63,7 @@
     "react": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "rimraf": "^3.0.0",
+    "ts-loader": "6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
