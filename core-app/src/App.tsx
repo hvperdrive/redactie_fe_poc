@@ -28,8 +28,12 @@ const App: FC = () => {
 	// Get modules config from server
 	const modulesConfig = useMemo(() => [
 		{
-			jsPath: `${process.env.PUBLIC_URL}/module.js`,
-			machineName: 'external-module',
+			jsPath: `${process.env.PUBLIC_URL}/redactie-sites-module.umd.js`,
+			machineName: 'redactie-sites',
+		},
+		{
+			jsPath: `${process.env.PUBLIC_URL}/external-demo-module.js`,
+			machineName: 'external-demo-module',
 		},
 		{
 			jsPath: `${process.env.PUBLIC_URL}/redactie-form-renderer.js`,
@@ -54,6 +58,7 @@ const App: FC = () => {
 
 	const renderNavigationItems = () => {
 		const routes = Core.routes.getAll();
+
 		return routes.map((route: any, index: any) => <Link key={index} to={route.path}>{route.label}</Link>)
 	}
 

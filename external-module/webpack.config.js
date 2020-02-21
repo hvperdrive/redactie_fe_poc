@@ -28,7 +28,7 @@ module.exports = {
 	},
 	plugins: [
 		new RedactionWebpackPlugin({
-			moduleName: 'external-module'
+			moduleName: 'external-demo-module'
 		})
 	],
 	resolve: {

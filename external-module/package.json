@@ -1,5 +1,5 @@
 {
-  "name": "@wcm/boilerplate",
+  "name": "@redactie/external-demo-module",
   "version": "0.0.1",
   "description": "Boilerplate module",
   "main": "dist/bundle.cjs.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build:types": "tsc --emitDeclarationOnly",
-    "build": "npm run prebuild && npm run build:types && webpack --mode=production && cp dist/external-module.umd.js ../core-app/public/module.js",
+    "build": "npm run prebuild && npm run build:types && webpack --mode=production",
     "test": "NODE_ENV=test APP=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "publishConfig": {

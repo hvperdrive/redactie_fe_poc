@@ -21,28 +21,32 @@ const ModuleRouteComponent: FC<{ route: ModuleRouteConfig }> = ({ route }) => {
 			<h1>External Module Route</h1>
 
 			<nav>
-				<Link to={`${match.path}/add`}> child route </Link>
+				<Link to={`${match.path}/child`}> child route </Link>
 			</nav>
-			{Core.routes.render(route.routes as any)}
+			{sitesModule.siteRegistry.render(route.routes as any)}
 		</div>
 	)
 };
 
-Core.routes.register({
-	path: '/content',
-	component: ModuleRouteComponent,
-	label: 'Content',
-	routes: [
-		{
-			path: '/content/add',
-			component: ChildRouteComponent
-		}
-	]
-});
-
-Core.modules.exposeModuleApi('external-module', {
+Core.modules.exposeModuleApi('external-demo-module', {
 	someprop: 'custom api prop',
 });
+
+const sitesModule = Core.modules.getModuleAPI('sites-module');
+
+if (sitesModule) {
+	sitesModule.siteRegistry.register({
+		path: '/external-demo',
+		component: ModuleRouteComponent,
+		label: 'External Demo',
+		routes: [
+			{
+				path: '/external-demo/child',
+				component: ChildRouteComponent
+			}
+		]
+	});
+}
 
 export default {
 	mainRouteComponent: ModuleRouteComponent,
